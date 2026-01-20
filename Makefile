@@ -1,22 +1,33 @@
-CC  = g++
-CFLAGS    =
-TARGET  = model
-SRCS    = model.cpp
-OBJS    = $(SRCS:.cpp=.o)
-INCDIR  = -I../inc
-LIBDIR  = 
-LIBS    = 
+CXX = g++
+CXXFLAGS = -g -I../inc
+TARGET = model
+SRCS = src/model.cpp
+OBJS = $(SRCS:.cpp=.o)
+LIBS = -lm
+
+all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) -o $@ $^ $(LIBDIR) $(LIBS)
-	
-$(OBJS): $(SRCS)
-	$(CC) $(CFLAGS) $(INCDIR) -c $(SRCS)
+	$(CXX) -o $@ $^ $(LIBS)
+
+src/%.o: src/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+run: $(TARGET)
+	./$(TARGET)
+	rm -f $(TARGET)
+
+plotm:
+	gnuplot plot/plot_male.gp
+
+plotf:
+	gnuplot plot/plot_female.gp
 
 plot:
-	gnuplot plot.gp
-
-all: clean $(OBJS) $(TARGET)
+	gnuplot plot/plot.gp
 
 clean:
-	-rm -f $(OBJS) $(TARGET) *.d
+	rm -f $(OBJS) $(TARGET)
+
+.PHONY: plot plotm plotf run clean
+
