@@ -42,3 +42,6 @@
 
 # csv file
 *.csv
+
+# png file
+*.png

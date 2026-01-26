@@ -17,14 +17,11 @@ run: $(TARGET)
 	./$(TARGET)
 	rm -f $(TARGET)
 
-plotm:
-	gnuplot plot/plot_male.gp
-
-plotf:
-	gnuplot plot/plot_female.gp
-
 plot:
-	gnuplot plot/plot.gp
+	gnuplot plot/plot_attr_satis.gp
+	gnuplot plot/plot_disc_satis.gp
+	gnuplot plot/plot_male.gp
+	gnuplot plot/plot_female.gp
 
 clean:
 	rm -f $(OBJS) $(TARGET)
